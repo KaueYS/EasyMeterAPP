@@ -22,12 +22,12 @@ namespace EasyMeterAPP.Controllers
             var blocos = await _context.BLOCO.Where(x=> x.CondominioId == condominioId).ToListAsync();
             List<BlocoDTO> blocosDTO = new List<BlocoDTO>();
             BlocoDTO blocoDTO = null;
+
             foreach (var bloco in blocos)
             {
                 blocoDTO = new BlocoDTO();
                 blocoDTO.Id = bloco.Id;
                 blocoDTO.Nome = bloco.Nome;
-
                 blocosDTO.Add(blocoDTO);
             }
             return blocosDTO.Count == 0 ? NotFound("Blocos nao cadastradas") : Ok(blocosDTO);
@@ -40,13 +40,11 @@ namespace EasyMeterAPP.Controllers
             bloco.Id = blocoQuery.Id;
             bloco.Nome = blocoQuery.Nome;
             bloco.CondominioId = blocoQuery.CondominioId;
+
             _context.BLOCO.Add(bloco);
             await _context.SaveChangesAsync();
 
-
             return Ok(bloco);
         }
-
-
     }
 }

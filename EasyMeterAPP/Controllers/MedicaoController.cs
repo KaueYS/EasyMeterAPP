@@ -16,6 +16,8 @@ namespace EasyMeterAPP.Controllers
             _context = context;
         }
 
+        //FLUXO e VERBOS sempre INICIAM na tela do USUARIO - quem faz o GET é o usuario, quem faz o POST é o usuario
+        //Fluxo: Do Banco PARA Tela do usuario - via DTO
         [HttpGet]
         public async Task<IActionResult> ListarMedicoes()
         {
@@ -34,11 +36,13 @@ namespace EasyMeterAPP.Controllers
             return medicoesDTO.Count == 0 ? NotFound("Medições não cadastradas") : Ok(medicoesDTO);
         }
 
+
+        //Fluxo: Da Tela do usuario PARA o banco - via DTQ
         [HttpPost]
         public IActionResult CadastrarMedicao([FromBody] MedicaoSalvarDTQ medicaoSalvarQuery)
         {
             Medicao medicao = new Medicao();
-
+            if (medicao is null) return NotFound();
             medicao.UnidadeId = medicaoSalvarQuery.UnidadeId;
             medicao.MedicaoAtual = medicaoSalvarQuery.MedicaoRealizada;
             medicao.DataHoraMedicao = medicaoSalvarQuery.DataHoraRealizada;

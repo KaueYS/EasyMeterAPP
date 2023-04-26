@@ -17,14 +17,15 @@ namespace EasyMeterAPP.Controllers
         }
 
         [HttpGet]
-        public async Task <IActionResult> ListarUnidadesAsync(int blocoId)
+        public async Task<IActionResult> ListarUnidadesAsync(int blocoId)
         {
             var unidades = await _context.UNIDADE.Where(x => x.BlocoId == blocoId).ToListAsync();
             List<UnidadeDTO> unidadesDTO = new List<UnidadeDTO>();
+            UnidadeDTO unidadeDTO = null;
             foreach (var unidade in unidades)
             {
-                UnidadeDTO unidadeDTO = new UnidadeDTO();
-                unidadeDTO.Id= unidade.Id;
+                unidadeDTO = new UnidadeDTO();
+                unidadeDTO.Id = unidade.Id;
                 unidadeDTO.Nome = unidade.Nome;
 
                 unidadesDTO.Add(unidadeDTO);
@@ -33,11 +34,13 @@ namespace EasyMeterAPP.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> CadastrarUnidadesAsync([FromBody] UnidadeDTQ unidadeQuery)
+        public async Task<IActionResult> CadastrarUnidadesAsync([FromBody] UnidadeDTQ unidadeQuery)
         {
-            Unidade unidade= new Unidade();
+            Unidade unidade = new Unidade();
+            if (unidade is null) return NotFound();
+
             unidade.Id = unidadeQuery.Id;
-            unidade.Nome= unidadeQuery.Nome;
+            unidade.Nome = unidadeQuery.Nome;
             unidade.BlocoId = unidadeQuery.BlocoId;
             unidade.CondominioId = unidadeQuery.CondominioId;
 

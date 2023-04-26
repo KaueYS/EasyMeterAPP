@@ -30,9 +30,7 @@ namespace EasyMeterAPP.Controllers
                 condominioDTO.Id = condominio.Id;
                 condominioDTO.Nome = condominio.Nome;
                 condominiosDTO.Add(condominioDTO);
-
             }
-
             return condominiosDTO.Count == 0 ? NotFound("Condominios nao cadastradas") : Ok(condominiosDTO);
         }
 
