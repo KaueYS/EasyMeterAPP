@@ -1,11 +1,13 @@
 ﻿using EasyMeterAPP.DTO;
 using EasyMeterAPP.Entities.Entity;
 using EasyMeterAPP.InfraEstrutura.Infra;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyMeterAPP.Controllers
 {
+    [Authorize]
     [Route("[controller]/[action]")]
     [ApiController]
     public class CondominioController : ControllerBase
